@@ -40,8 +40,17 @@ func TestHTMLRendererMinimal(t *testing.T) {
 	if !strings.Contains(html, "Hello, world") {
 		t.Error("missing note text")
 	}
-	if !strings.Contains(html, "--bg-primary: #0d1117") {
-		t.Error("missing dark theme CSS")
+	if !strings.Contains(html, `data-theme="dark"`) {
+		t.Error("missing data-theme attribute on html tag")
+	}
+	if !strings.Contains(html, `[data-theme="dark"]`) {
+		t.Error("missing dark theme CSS selector")
+	}
+	if !strings.Contains(html, `[data-theme="light"]`) {
+		t.Error("missing light theme CSS selector")
+	}
+	if !strings.Contains(html, `id="theme-toggle"`) {
+		t.Error("missing theme toggle button")
 	}
 	// Should not contain watch script
 	if strings.Contains(html, "EventSource") {
@@ -110,7 +119,13 @@ func TestHTMLRendererLightTheme(t *testing.T) {
 	}
 
 	html := buf.String()
-	if !strings.Contains(html, "--bg-primary: #ffffff") {
+	if !strings.Contains(html, `data-theme="light"`) {
+		t.Error("missing data-theme='light' attribute")
+	}
+	if !strings.Contains(html, `[data-theme="dark"]`) {
+		t.Error("missing dark theme CSS (both themes should be embedded)")
+	}
+	if !strings.Contains(html, `[data-theme="light"]`) {
 		t.Error("missing light theme CSS")
 	}
 }
@@ -196,5 +211,36 @@ func TestHTMLRendererAllPrimitives(t *testing.T) {
 		if !strings.Contains(html, text) {
 			t.Errorf("%s: expected HTML to contain %q", name, text)
 		}
+	}
+}
+
+func TestThemeToggleScript(t *testing.T) {
+	d := &diagram.Diagram{
+		Title: "Toggle Test",
+		Theme: "dark",
+		Elements: []diagram.Component{
+			&diagram.Note{Text: "test", Style: "muted"},
+		},
+	}
+
+	r, err := render.NewHTMLRenderer()
+	if err != nil {
+		t.Fatalf("NewHTMLRenderer: %v", err)
+	}
+
+	var buf bytes.Buffer
+	if err := r.Render(d, &buf); err != nil {
+		t.Fatalf("Render: %v", err)
+	}
+
+	html := buf.String()
+	if !strings.Contains(html, "localStorage") {
+		t.Error("missing localStorage in toggle script")
+	}
+	if !strings.Contains(html, "archdiag-theme") {
+		t.Error("missing archdiag-theme key in toggle script")
+	}
+	if !strings.Contains(html, "data-theme") {
+		t.Error("missing data-theme in toggle script")
 	}
 }

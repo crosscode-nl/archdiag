@@ -67,9 +67,10 @@ func NewHTMLRenderer() (*HTMLRenderer, error) {
 }
 
 type renderData struct {
-	Diagram     *diagram.Diagram
-	ThemeCSS    template.CSS
-	WatchScript template.JS
+	Diagram      *diagram.Diagram
+	ThemeCSS     template.CSS
+	DefaultTheme string
+	WatchScript  template.JS
 }
 
 // Render renders a diagram to HTML without watch script.
@@ -83,14 +84,20 @@ func (r *HTMLRenderer) RenderWithWatch(d *diagram.Diagram, w io.Writer) error {
 }
 
 func (r *HTMLRenderer) renderHTML(d *diagram.Diagram, w io.Writer, watch bool) error {
-	css, err := theme.Load(d.Theme)
+	css, err := theme.LoadAll()
 	if err != nil {
-		return fmt.Errorf("load theme %q: %w", d.Theme, err)
+		return fmt.Errorf("load themes: %w", err)
+	}
+
+	defaultTheme := d.Theme
+	if defaultTheme == "" {
+		defaultTheme = "dark"
 	}
 
 	data := renderData{
-		Diagram:  d,
-		ThemeCSS: template.CSS(css),
+		Diagram:      d,
+		ThemeCSS:     template.CSS(css),
+		DefaultTheme: defaultTheme,
 	}
 	if watch {
 		data.WatchScript = template.JS(watchScript)

@@ -1,0 +1,60 @@
+<h2>Where should the theme toggle go?</h2>
+<p class="subtitle">Consider how it fits with the diagram layout (max-width: 1200px, centered)</p>
+
+<div class="options">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Top-right corner (fixed)</h3>
+      <p>Floating button pinned to the viewport top-right. Always visible, even when scrolling. Stays out of the diagram content flow.</p>
+      <div class="mockup" style="margin-top:12px">
+        <div class="mockup-body" style="position:relative;min-height:180px;background:#0d1117;color:#e6edf3;font-family:system-ui;padding:0">
+          <div style="position:absolute;top:12px;right:12px;background:#161b22;border:1px solid #30363d;border-radius:8px;padding:6px 10px;font-size:13px;cursor:pointer">🌙 / ☀️</div>
+          <div style="max-width:80%;margin:0 auto;padding:32px 0">
+            <div style="font-size:20px;font-weight:bold;margin-bottom:4px">Diagram Title</div>
+            <div style="color:#8b949e;font-size:14px;margin-bottom:16px">Subtitle</div>
+            <div style="border:1px solid #30363d;border-radius:8px;padding:12px;font-size:12px;color:#8b949e">Section content...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Inline with title (right-aligned)</h3>
+      <p>Toggle sits on the same line as the diagram title, right-aligned within the 1200px container. Scrolls with content.</p>
+      <div class="mockup" style="margin-top:12px">
+        <div class="mockup-body" style="min-height:180px;background:#0d1117;color:#e6edf3;font-family:system-ui;padding:24px">
+          <div style="max-width:80%;margin:0 auto">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+              <div style="font-size:20px;font-weight:bold">Diagram Title</div>
+              <div style="background:#161b22;border:1px solid #30363d;border-radius:8px;padding:6px 10px;font-size:13px;cursor:pointer">🌙 / ☀️</div>
+            </div>
+            <div style="color:#8b949e;font-size:14px;margin-bottom:16px">Subtitle</div>
+            <div style="border:1px solid #30363d;border-radius:8px;padding:12px;font-size:12px;color:#8b949e">Section content...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Bottom-right corner (fixed)</h3>
+      <p>Floating button pinned to the viewport bottom-right. Unobtrusive, similar to "back to top" buttons. Always accessible.</p>
+      <div class="mockup" style="margin-top:12px">
+        <div class="mockup-body" style="position:relative;min-height:180px;background:#0d1117;color:#e6edf3;font-family:system-ui;padding:0">
+          <div style="max-width:80%;margin:0 auto;padding:32px 0">
+            <div style="font-size:20px;font-weight:bold;margin-bottom:4px">Diagram Title</div>
+            <div style="color:#8b949e;font-size:14px;margin-bottom:16px">Subtitle</div>
+            <div style="border:1px solid #30363d;border-radius:8px;padding:12px;font-size:12px;color:#8b949e">Section content...</div>
+          </div>
+          <div style="position:absolute;bottom:12px;right:12px;background:#161b22;border:1px solid #30363d;border-radius:8px;padding:6px 10px;font-size:13px;cursor:pointer">🌙 / ☀️</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

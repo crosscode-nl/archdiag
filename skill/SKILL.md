@@ -9,13 +9,9 @@ Generate valid archdiag YAML files from natural-language descriptions of infrast
 
 ## Workflow
 
-1. Check the latest release and ensure `archdiag` is up to date:
-   - Run `gh release view --repo crosscode-nl/archdiag --json tagName -q .tagName` to get the latest release tag.
-   - Check if `archdiag` is installed by running `which archdiag`. If installed, run `archdiag --version` and compare with the latest release.
-   - If not installed or outdated, install it:
-     - Requires Go 1.24+. Verify with `go version`.
-     - Run `go install github.com/crosscode-nl/archdiag/cmd/archdiag@<tag>` using the release tag from above.
-     - If `go` is not installed either, tell the user they need Go first (https://go.dev/dl/) and stop.
+1. Ensure `archdiag` is installed and up to date:
+   - Requires Go 1.24+. Verify with `go version`. If `go` is not installed, tell the user they need Go first (https://go.dev/dl/) and stop.
+   - Run `go install github.com/crosscode-nl/archdiag/cmd/archdiag@latest` to install or update to the latest version.
 2. Parse the user's description for: components, relationships, layers/boundaries, data flows.
 2. Choose a palette of 4-6 semantic colors based on the domains mentioned.
 3. Structure top-down: title/subtitle → palette → connectors between layers → sections for boundaries → cards/flows/steps inside.

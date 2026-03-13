@@ -15,7 +15,7 @@
     {{- if eq .Style "outlined"}}
     <span style="display: inline-block; font-size: 10px; padding: 2px 6px; border-radius: var(--radius-badge); border: 1px solid {{if .Color}}{{.Color.Hex}}{{else}}var(--border-default){{end}};{{if .Color}} color: {{.Color.Hex}};{{end}}">{{.Text}}</span>
     {{- else}}
-    <span style="display: inline-block; font-size: 10px; padding: 2px 6px; border-radius: var(--radius-badge);{{if .Color}} background: {{.Color.Background}}; color: {{.Color.Hex}};{{else}} background: var(--bg-nested); color: var(--text-muted);{{end}}">{{.Text}}</span>
+    <span style="display: inline-block; font-size: 10px; padding: 2px 6px; border-radius: var(--radius-badge);{{if .Color}} background: {{.Color.Background}}; color: {{.Color.Hex}};{{else}} background: var(--bg-badge); color: var(--text-muted);{{end}}">{{.Text}}</span>
     {{- end}}
     {{- end}}
   </div>

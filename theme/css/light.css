@@ -1,7 +1,8 @@
 [data-theme="light"] {
     --bg-primary: #ffffff;
     --bg-card: #f6f8fa;
-    --bg-nested: #ffffff;
+    --bg-nested: #f0f3f6;
+    --bg-badge: #e8ecf0;
     --text-primary: #1f2328;
     --text-muted: #656d76;
     --text-detail: #656d76;

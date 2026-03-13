@@ -236,7 +236,11 @@ func (ws *WatchServer) handleIndex(dirPath string, w http.ResponseWriter, r *htt
 	if ws.theme != "" {
 		themeName = ws.theme
 	}
-	css, _ := theme.LoadAll()
+	css, err := theme.LoadAll()
+	if err != nil {
+		http.Error(w, "failed to load theme CSS", http.StatusInternalServerError)
+		return
+	}
 
 	type indexData struct {
 		ThemeCSS     template.CSS

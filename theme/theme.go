@@ -9,6 +9,8 @@ import (
 var themesFS embed.FS
 
 // Load returns the CSS content for the given theme name ("dark" or "light").
+// Note: returns only the theme's scoped variables (under [data-theme="..."]),
+// not the base styles. Use LoadAll() for a complete stylesheet.
 func Load(name string) (string, error) {
 	data, err := themesFS.ReadFile("css/" + name + ".css")
 	if err != nil {

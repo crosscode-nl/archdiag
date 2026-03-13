@@ -2,6 +2,8 @@
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/crosscode-nl/archdiag.svg)](https://pkg.go.dev/github.com/crosscode-nl/archdiag)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Tests](https://github.com/crosscode-nl/archdiag/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/crosscode-nl/archdiag/actions/workflows/test.yml)
+[![Release](https://img.shields.io/github/v/release/crosscode-nl/archdiag)](https://github.com/crosscode-nl/archdiag/releases/latest)
 
 A YAML-to-HTML architecture diagram generator. Define your infrastructure and system architecture in YAML, render it to self-contained HTML with live reload support.
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="{{.DefaultTheme}}">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +9,13 @@
 </style>
 </head>
 <body>
+<button id="theme-toggle" title="Toggle theme" style="
+  position: fixed; top: 16px; right: 16px; z-index: 1000;
+  background: var(--bg-card); border: 1px solid var(--border-default);
+  border-radius: var(--radius-card); padding: 6px 10px;
+  cursor: pointer; font-size: 16px; color: var(--text-primary);
+  line-height: 1;
+" aria-label="Toggle light/dark theme">{{if eq .DefaultTheme "dark"}}&#9728;&#65039;{{else}}&#127769;{{end}}</button>
 <div class="diagram">
   <h1>archdiag</h1>
   <h2>Available diagrams</h2>
@@ -21,5 +28,26 @@
   </a>
   {{- end}}
 </div>
+<script>
+(function() {
+  var btn = document.getElementById('theme-toggle');
+  var html = document.documentElement;
+  var stored = localStorage.getItem('archdiag-theme');
+  if (stored === 'dark' || stored === 'light') {
+    html.setAttribute('data-theme', stored);
+  }
+  function updateIcon() {
+    btn.textContent = html.getAttribute('data-theme') === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+  }
+  updateIcon();
+  btn.addEventListener('click', function() {
+    var current = html.getAttribute('data-theme');
+    var next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('archdiag-theme', next);
+    updateIcon();
+  });
+})();
+</script>
 </body>
 </html>

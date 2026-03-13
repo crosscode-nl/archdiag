@@ -236,17 +236,19 @@ func (ws *WatchServer) handleIndex(dirPath string, w http.ResponseWriter, r *htt
 	if ws.theme != "" {
 		themeName = ws.theme
 	}
-	css, _ := theme.Load(themeName)
+	css, _ := theme.LoadAll()
 
 	type indexData struct {
-		ThemeCSS template.CSS
-		Diagrams []entry
+		ThemeCSS     template.CSS
+		DefaultTheme string
+		Diagrams     []entry
 	}
 
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	ws.renderer.Tmpl.ExecuteTemplate(w, "index.html.tmpl", indexData{
-		ThemeCSS: template.CSS(css),
-		Diagrams: entries,
+		ThemeCSS:     template.CSS(css),
+		DefaultTheme: themeName,
+		Diagrams:     entries,
 	})
 }
 

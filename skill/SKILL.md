@@ -1,6 +1,6 @@
 ---
 name: archdiag-yaml
-description: Use when the user asks to create, generate, or write an architecture diagram, infrastructure diagram, or archdiag YAML file. Triggers on requests like "diagram our VPC", "create an architecture diagram", "generate archdiag YAML for...".
+description: Use when the user asks to create, generate, or write an architecture diagram, infrastructure diagram, system diagram, service map, or archdiag YAML file. Triggers on requests like "diagram our VPC", "create an architecture diagram", "generate archdiag YAML for...", "visualize our architecture", "make a service map", "draw a system diagram". Also use when the user wants to modify or refine an existing archdiag YAML file.
 ---
 
 # Generating archdiag YAML
@@ -9,12 +9,16 @@ Generate valid archdiag YAML files from natural-language descriptions of infrast
 
 ## Workflow
 
-1. Parse the user's description for: components, relationships, layers/boundaries, data flows.
+1. Check that `archdiag` is available by running `which archdiag`. If not found, install it:
+   - Requires Go 1.24+. Verify with `go version`.
+   - Run `go install github.com/crosscode-nl/archdiag/cmd/archdiag@latest`.
+   - If `go` is not installed either, tell the user they need Go first (https://go.dev/dl/) and stop.
+2. Parse the user's description for: components, relationships, layers/boundaries, data flows.
 2. Choose a palette of 4-6 semantic colors based on the domains mentioned.
 3. Structure top-down: title/subtitle → palette → connectors between layers → sections for boundaries → cards/flows/steps inside.
 4. Write the complete YAML file with the `Write` tool.
 5. Run `archdiag validate <file>` to catch errors. If validation fails, fix and re-validate.
-6. Run `archdiag render <file>` to produce HTML.
+6. Run `archdiag render <file>` to produce HTML (outputs `.html` next to the `.yaml` by default; use `-o <dir>` for a different output directory; use `--light` or `--dark` to override the theme).
 7. Present the result and offer refinement.
 
 **Do NOT ask clarifying questions before generating.** Get something on screen fast. After the first draft, ask:
@@ -24,7 +28,7 @@ Generate valid archdiag YAML files from natural-language descriptions of infrast
 **Refinement rules:**
 - Edit the existing YAML — do not regenerate from scratch.
 - Re-validate and re-render after each change.
-- Offer `archdiag watch <file> --open` for iterative refinement if multiple rounds are expected.
+- Offer `archdiag watch <file> --open` for iterative refinement if multiple rounds are expected (also supports `--port <N>`, `--light`, `--dark`).
 
 **Error handling:**
 - Validation failures: fix the YAML automatically, re-validate.
@@ -272,6 +276,22 @@ diagram:
           - { text: "LB", color: network }
           - { text: "App", color: compute }
           - { text: "DB", color: security }
+
+    - flow:
+        name: "Platform Dependencies"
+        color: compute
+        rows:
+          - steps:
+              - { text: "Ingress", color: network }
+              - { text: "Service Mesh", color: compute }
+              - "Backend"
+            connector: arrow
+            suffix: "mTLS"
+          - steps:
+              - { text: "Secrets" }
+              - { text: "Config Maps" }
+              - { text: "CRDs" }
+            connector: plus
 
     - note:
         text: "All traffic encrypted in transit via TLS"

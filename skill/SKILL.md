@@ -9,16 +9,19 @@ Generate valid archdiag YAML files from natural-language descriptions of infrast
 
 ## Workflow
 
-1. Check that `archdiag` is available by running `which archdiag`. If not found, install it:
-   - Requires Go 1.24+. Verify with `go version`.
-   - Run `go install github.com/crosscode-nl/archdiag/cmd/archdiag@latest`.
-   - If `go` is not installed either, tell the user they need Go first (https://go.dev/dl/) and stop.
+1. Check the latest release and ensure `archdiag` is up to date:
+   - Run `gh release view --repo crosscode-nl/archdiag --json tagName -q .tagName` to get the latest release tag.
+   - Check if `archdiag` is installed by running `which archdiag`. If installed, run `archdiag --version` and compare with the latest release.
+   - If not installed or outdated, install it:
+     - Requires Go 1.24+. Verify with `go version`.
+     - Run `go install github.com/crosscode-nl/archdiag/cmd/archdiag@<tag>` using the release tag from above.
+     - If `go` is not installed either, tell the user they need Go first (https://go.dev/dl/) and stop.
 2. Parse the user's description for: components, relationships, layers/boundaries, data flows.
 2. Choose a palette of 4-6 semantic colors based on the domains mentioned.
 3. Structure top-down: title/subtitle → palette → connectors between layers → sections for boundaries → cards/flows/steps inside.
 4. Write the complete YAML file with the `Write` tool.
 5. Run `archdiag validate <file>` to catch errors. If validation fails, fix and re-validate.
-6. Run `archdiag render <file>` to produce HTML (outputs `.html` next to the `.yaml` by default; use `-o <dir>` for a different output directory; use `--light` or `--dark` to override the theme).
+6. Run `archdiag watch <file> --open` in the background to render and open the diagram in the browser with live reload (also supports `--port <N>`, `--light`, `--dark`).
 7. Present the result and offer refinement.
 
 **Do NOT ask clarifying questions before generating.** Get something on screen fast. After the first draft, ask:
@@ -27,8 +30,7 @@ Generate valid archdiag YAML files from natural-language descriptions of infrast
 
 **Refinement rules:**
 - Edit the existing YAML — do not regenerate from scratch.
-- Re-validate and re-render after each change.
-- Offer `archdiag watch <file> --open` for iterative refinement if multiple rounds are expected (also supports `--port <N>`, `--light`, `--dark`).
+- Re-validate after each change. The running `archdiag watch` process will automatically re-render and live-reload the browser.
 
 **Error handling:**
 - Validation failures: fix the YAML automatically, re-validate.

@@ -1,0 +1,24 @@
+diagram:
+  title: "archdiag — Data Pipeline"
+  subtitle: "From YAML to self-contained HTML"
+  palette:
+    input: "#f59e0b"
+    process: "#4a9eff"
+    output: "#22c55e"
+  elements:
+    - flow:
+        name: "Rendering Pipeline"
+        color: process
+        rows:
+          - steps:
+              - { text: "YAML File", color: input }
+              - { text: "parse.Parse()", color: process, details: ["Unmarshal YAML", "Resolve colors"] }
+              - { text: "parse.Validate()", color: process, details: ["Check required fields", "Validate enums"] }
+              - { text: "render.Render()", color: output, details: ["Apply theme CSS", "Execute templates"] }
+              - { text: "HTML Output", color: output }
+            connector: arrow
+            suffix: "Self-contained"
+
+    - note:
+        text: "The entire pipeline runs in a single pass — no intermediate files or external dependencies."
+        style: muted

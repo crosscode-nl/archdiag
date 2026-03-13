@@ -1,0 +1,91 @@
+diagram:
+  title: "archdiag — The 9 Primitives"
+  subtitle: "Building blocks for every diagram"
+  palette:
+    container: "#4a9eff"
+    content: "#22c55e"
+    layout: "#a855f7"
+    navigation: "#f59e0b"
+    annotation: "#ef4444"
+  elements:
+    - section:
+        name: "Containers"
+        color: container
+        children:
+          - cards:
+              - name: "section"
+                color: container
+                details:
+                  - "Bordered container"
+                  - "Supports nesting"
+                badges:
+                  - { text: "name", color: container, style: filled }
+                  - { text: "tag", color: container, style: outlined }
+                  - { text: "border", color: container, style: outlined }
+                  - { text: "span", color: container, style: outlined }
+              - name: "grid"
+                color: layout
+                details:
+                  - "Multi-column layout"
+                  - "CSS Grid based"
+                badges:
+                  - { text: "columns", color: layout, style: filled }
+
+    - section:
+        name: "Content"
+        color: content
+        children:
+          - cards:
+              - name: "card / cards"
+                color: content
+                details:
+                  - "Rich component display"
+                  - "Badges, groups, footer"
+                badges:
+                  - { text: "name", color: content, style: filled }
+                  - { text: "badges", color: content, style: outlined }
+                  - { text: "groups", color: content, style: outlined }
+                  - { text: "version", color: content, style: outlined }
+              - name: "flow"
+                color: content
+                details:
+                  - "Step sequences"
+                  - "Single or multi-row"
+                badges:
+                  - { text: "arrow", color: content, style: filled }
+                  - { text: "plus", color: content, style: outlined }
+                  - { text: "none", color: content, style: outlined }
+              - name: "steps"
+                color: content
+                details:
+                  - "Numbered step list"
+                  - "Custom start number"
+              - name: "info"
+                color: content
+                details:
+                  - "Key-value metadata"
+                  - "Auto-fit grid layout"
+
+    - section:
+        name: "Navigation & Annotation"
+        color: navigation
+        children:
+          - cards:
+              - name: "connector"
+                color: navigation
+                details:
+                  - "Directional separator"
+                  - "Arrow or plain style"
+                badges:
+                  - { text: "down", color: navigation, style: filled }
+                  - { text: "right", color: navigation, style: outlined }
+                  - { text: "up", color: navigation, style: outlined }
+                  - { text: "left", color: navigation, style: outlined }
+              - name: "note"
+                color: annotation
+                details:
+                  - "Footer callout"
+                  - "Highlight or muted"
+                badges:
+                  - { text: "highlight", color: annotation, style: filled }
+                  - { text: "muted", color: annotation, style: outlined }

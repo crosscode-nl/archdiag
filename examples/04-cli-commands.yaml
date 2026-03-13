@@ -1,0 +1,45 @@
+diagram:
+  title: "archdiag — CLI Commands"
+  subtitle: "Three commands for the full workflow"
+  palette:
+    blue: "#4a9eff"
+    green: "#22c55e"
+    purple: "#a855f7"
+  elements:
+    - grid:
+        columns: 3
+        children:
+          - card:
+              name: "validate"
+              color: blue
+              details:
+                - "Check YAML for errors"
+                - "Reports to stderr"
+                - "Exit code 1 on failure"
+              footer: "archdiag validate <path>"
+          - card:
+              name: "render"
+              color: green
+              details:
+                - "Generate HTML output"
+                - "Single file or directory"
+                - "Theme override flags"
+              footer: "archdiag render <path>"
+          - card:
+              name: "watch"
+              color: purple
+              details:
+                - "Serve with live reload"
+                - "SSE-based hot refresh"
+                - "Auto-open browser"
+              footer: "archdiag watch <path>"
+
+    - info:
+        name: "Common Flags"
+        color: blue
+        items:
+          - { key: "--light", value: "Use light theme" }
+          - { key: "--dark", value: "Use dark theme" }
+          - { key: "-o, --output", value: "Output directory (render only)" }
+          - { key: "-p, --port", value: "HTTP port (watch only, default: 3210)" }
+          - { key: "--open", value: "Open browser (watch only)" }

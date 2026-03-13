@@ -1,0 +1,334 @@
+diagram:
+  title: "archdiag — Full Architecture"
+  subtitle: "Complete system overview of the YAML-to-HTML diagram generator"
+  palette:
+    cli: "#f59e0b"
+    parse: "#4a9eff"
+    model: "#a855f7"
+    render: "#22c55e"
+    theme: "#ef4444"
+  elements:
+    - connector:
+        direction: down
+        text: "User Input"
+        color: cli
+
+    # ── CLI Layer ──────────────────────────────────────────────
+    - section:
+        name: "CLI Layer"
+        color: cli
+        tag: "cmd/archdiag"
+        children:
+          - flow:
+              name: "Command Dispatch"
+              color: cli
+              rows:
+                - steps:
+                    - { text: "archdiag <cmd>", color: cli }
+                    - { text: "cobra.Command", color: cli, details: ["spf13/cobra v1.10", "Flag parsing"] }
+                  connector: arrow
+
+          - grid:
+              columns: 3
+              children:
+                - card:
+                    name: "render"
+                    color: cli
+                    details:
+                      - "Parse → Validate → Render"
+                      - "File or directory mode"
+                    badges:
+                      - { text: "-o output", color: cli, style: outlined }
+                - card:
+                    name: "validate"
+                    color: cli
+                    details:
+                      - "Parse → Validate only"
+                      - "Exit code 1 on failure"
+                - card:
+                    name: "watch"
+                    color: cli
+                    details:
+                      - "Parse → Render → Serve"
+                      - "Live reload via SSE"
+                    badges:
+                      - { text: "-p port", color: cli, style: outlined }
+                      - { text: "--open", color: cli, style: outlined }
+
+    - connector:
+        direction: down
+        text: "YAML bytes"
+        color: parse
+
+    # ── Parse Layer ───────────────────────────────────────────
+    - section:
+        name: "Parse Layer"
+        color: parse
+        tag: "parse/"
+        children:
+          - grid:
+              columns: 2
+              children:
+                - section:
+                    name: "Unmarshaling"
+                    color: parse
+                    border: dashed
+                    children:
+                      - card:
+                          name: "parse.Parse()"
+                          color: parse
+                          subtitle: "parse/parse.go"
+                          details:
+                            - "YAML v3 unmarshaling"
+                            - "Single-key mapping dispatch"
+                            - "Color palette resolution"
+                          groups:
+                            - label: "Handles"
+                              items:
+                                - "9 primitive types"
+                                - "Flow shorthand + rows form"
+                                - "Inline hex + palette names"
+                - section:
+                    name: "Validation"
+                    color: parse
+                    border: dashed
+                    children:
+                      - card:
+                          name: "parse.Validate()"
+                          color: parse
+                          subtitle: "parse/validate.go"
+                          details:
+                            - "Required field checks"
+                            - "Enum constraint validation"
+                            - "Recursive child validation"
+                          groups:
+                            - label: "Returns"
+                              items:
+                                - "[]error — all errors at once"
+
+    - connector:
+        direction: down
+        text: "*diagram.Diagram"
+        color: model
+
+    # ── Data Model Layer ──────────────────────────────────────
+    - section:
+        name: "Data Model"
+        color: model
+        tag: "diagram/"
+        children:
+          - card:
+              name: "Component Interface"
+              color: model
+              span: full
+              subtitle: "diagram/component.go"
+              details:
+                - "All 9 primitives implement this interface"
+              groups:
+                - label: "Methods"
+                  mono: true
+                  items:
+                    - "Type() string"
+                    - "Children() []Component"
+
+          - grid:
+              columns: 3
+              children:
+                - card:
+                    name: "Section"
+                    color: model
+                    badges:
+                      - { text: "container", color: model, style: filled }
+                    details:
+                      - "Name, Color, Border"
+                      - "Tag, Span, Children"
+                - card:
+                    name: "Card / Cards"
+                    color: model
+                    badges:
+                      - { text: "content", color: model, style: filled }
+                    details:
+                      - "Name, Badges, Groups"
+                      - "Version, Footer"
+                - card:
+                    name: "Flow"
+                    color: model
+                    badges:
+                      - { text: "content", color: model, style: filled }
+                    details:
+                      - "Rows of FlowSteps"
+                      - "Connector, Suffix"
+                - card:
+                    name: "Grid"
+                    color: model
+                    badges:
+                      - { text: "layout", color: model, style: filled }
+                    details:
+                      - "Columns count"
+                      - "Children components"
+                - card:
+                    name: "Steps / Info"
+                    color: model
+                    badges:
+                      - { text: "content", color: model, style: filled }
+                    details:
+                      - "Numbered items"
+                      - "Key-value pairs"
+                - card:
+                    name: "Connector / Note"
+                    color: model
+                    badges:
+                      - { text: "navigation", color: model, style: filled }
+                    details:
+                      - "Direction arrows"
+                      - "Annotations"
+
+          - cards:
+              - name: "ResolvedColor"
+                color: model
+                subtitle: "diagram/color.go"
+                groups:
+                  - label: "Fields"
+                    mono: true
+                    items:
+                      - "Hex string        → #4a9eff"
+                      - "Background string → rgba(74, 158, 255, 0.1)"
+              - name: "Palette"
+                color: model
+                subtitle: "map[string]string"
+                details:
+                  - "Semantic name → hex mapping"
+                  - "Shared across all components"
+
+    - connector:
+        direction: down
+        text: "Diagram struct"
+        color: render
+
+    # ── Render Layer ──────────────────────────────────────────
+    - section:
+        name: "Render Layer"
+        color: render
+        tag: "render/"
+        children:
+          - grid:
+              columns: 2
+              children:
+                - section:
+                    name: "Template Engine"
+                    color: render
+                    border: dashed
+                    children:
+                      - card:
+                          name: "HTMLRenderer"
+                          color: render
+                          subtitle: "render/html.go"
+                          details:
+                            - "Recursive renderComponent"
+                            - "Template function map"
+                          groups:
+                            - label: "10 Templates"
+                              items:
+                                - "diagram, section, card, cards"
+                                - "flow, grid, steps, info"
+                                - "connector, note"
+                - section:
+                    name: "Watch Server"
+                    color: render
+                    border: dashed
+                    children:
+                      - card:
+                          name: "WatchServer"
+                          color: render
+                          subtitle: "render/watchserver.go"
+                          details:
+                            - "fsnotify file monitoring"
+                            - "SSE live reload"
+                            - "Concurrent client channels"
+                          badges:
+                            - { text: "WatchFile()", color: render, style: outlined }
+                            - { text: "WatchDir()", color: render, style: outlined }
+
+    - connector:
+        direction: down
+        text: "Injects CSS"
+        color: theme
+
+    # ── Theme Layer ───────────────────────────────────────────
+    - section:
+        name: "Theme Layer"
+        color: theme
+        tag: "theme/"
+        children:
+          - grid:
+              columns: 2
+              children:
+                - card:
+                    name: "Dark Theme"
+                    color: theme
+                    subtitle: "theme/css/dark.css"
+                    details:
+                      - "GitHub-inspired dark palette"
+                    groups:
+                      - label: "Key Variables"
+                        mono: true
+                        items:
+                          - "--bg-primary: #0d1117"
+                          - "--text-primary: #e6edf3"
+                          - "--border-default: #30363d"
+                - card:
+                    name: "Light Theme"
+                    color: theme
+                    subtitle: "theme/css/light.css"
+                    details:
+                      - "Clean light palette"
+                    groups:
+                      - label: "Key Variables"
+                        mono: true
+                        items:
+                          - "--bg-primary: #ffffff"
+                          - "--text-primary: #1f2328"
+                          - "--border-default: #d0d7de"
+
+    - connector:
+        direction: down
+        text: "Output"
+        color: render
+
+    # ── Output ────────────────────────────────────────────────
+    - card:
+        name: "Self-Contained HTML"
+        color: render
+        span: full
+        details:
+          - "Single file, no external dependencies"
+          - "All CSS embedded inline"
+          - "Responsive design with media queries at 768px"
+        badges:
+          - { text: "Dark", color: theme, style: filled }
+          - { text: "Light", color: theme, style: outlined }
+
+    # ── Dependencies ──────────────────────────────────────────
+    - steps:
+        name: "Getting Started"
+        color: render
+        items:
+          - "go install github.com/crosscode-nl/archdiag/cmd/archdiag@latest"
+          - "Create a diagram.yaml file with your architecture"
+          - "archdiag validate diagram.yaml"
+          - "archdiag render diagram.yaml"
+          - "Open the generated HTML in your browser"
+
+    - info:
+        name: "Project Dependencies"
+        color: parse
+        items:
+          - { key: "Language", value: "Go 1.24" }
+          - { key: "CLI", value: "spf13/cobra v1.10" }
+          - { key: "YAML", value: "gopkg.in/yaml.v3" }
+          - { key: "File Watch", value: "fsnotify/fsnotify v1.9" }
+          - { key: "License", value: "MIT" }
+
+    - note:
+        text: "archdiag generates its own documentation — this diagram was written in archdiag YAML."
+        style: highlight

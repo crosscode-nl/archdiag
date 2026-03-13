@@ -1,0 +1,7 @@
+diagram:
+  title: "archdiag"
+  subtitle: "YAML-to-HTML architecture diagrams"
+  elements:
+    - note:
+        text: "A minimal diagram with just a title and a note."
+        style: muted

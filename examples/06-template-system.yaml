@@ -1,0 +1,134 @@
+diagram:
+  title: "archdiag — Template System"
+  subtitle: "Go HTML templates that render each primitive"
+  palette:
+    engine: "#4a9eff"
+    template: "#22c55e"
+    theme: "#a855f7"
+  elements:
+    - section:
+        name: "Render Engine"
+        color: engine
+        children:
+          - cards:
+              - name: "HTMLRenderer"
+                color: engine
+                subtitle: "render/html.go"
+                details:
+                  - "Parses all templates at init"
+                  - "Recursive renderComponent closure"
+                badges:
+                  - { text: "Render()", color: engine, style: filled }
+                groups:
+                  - label: "Template Functions"
+                    mono: true
+                    items:
+                      - "renderComponent"
+                      - "dirArrow"
+                      - "add"
+
+    - connector:
+        direction: down
+        text: "Dispatches to"
+        color: engine
+
+    - section:
+        name: "Component Templates"
+        color: template
+        tag: "render/templates/"
+        children:
+          - grid:
+              columns: 3
+              children:
+                - card:
+                    name: "diagram.html.tmpl"
+                    color: template
+                    details:
+                      - "Root HTML5 document"
+                      - "Embeds CSS, loops elements"
+                - card:
+                    name: "section.html.tmpl"
+                    color: template
+                    details:
+                      - "Flexbox bordered container"
+                      - "Label, tag, nesting"
+                - card:
+                    name: "card.html.tmpl"
+                    color: template
+                    details:
+                      - "Title, badges, groups"
+                      - "Version tag, footer"
+                - card:
+                    name: "cards.html.tmpl"
+                    color: template
+                    details:
+                      - "Flex row wrapper"
+                      - "min-width: 160px"
+                - card:
+                    name: "flow.html.tmpl"
+                    color: template
+                    details:
+                      - "Multi-row steps"
+                      - "Arrow and plus connectors"
+                - card:
+                    name: "grid.html.tmpl"
+                    color: template
+                    details:
+                      - "CSS Grid layout"
+                      - "repeat(N, 1fr)"
+                - card:
+                    name: "steps.html.tmpl"
+                    color: template
+                    details:
+                      - "Numbered list"
+                      - "Colored step numbers"
+                - card:
+                    name: "info.html.tmpl"
+                    color: template
+                    details:
+                      - "Key-value grid"
+                      - "Auto-fit columns"
+                - card:
+                    name: "connector.html.tmpl"
+                    color: template
+                    details:
+                      - "Centered pill"
+                      - "Direction arrow symbol"
+                - card:
+                    name: "note.html.tmpl"
+                    color: template
+                    details:
+                      - "Callout block"
+                      - "Highlight or muted"
+                - card:
+                    name: "index.html.tmpl"
+                    color: template
+                    details:
+                      - "Directory listing page"
+                      - "Links to all diagrams"
+
+    - connector:
+        direction: down
+        text: "Styled by"
+        color: theme
+
+    - section:
+        name: "Theme CSS"
+        color: theme
+        tag: "theme/css/"
+        children:
+          - grid:
+              columns: 2
+              children:
+                - card:
+                    name: "dark.css"
+                    color: theme
+                    details:
+                      - "GitHub-inspired dark palette"
+                      - "bg: #0d1117, text: #e6edf3"
+                - card:
+                    name: "light.css"
+                    color: theme
+                    details:
+                      - "Clean light palette"
+                      - "bg: #ffffff, text: #1f2328"

@@ -64,6 +64,10 @@ archdiag render diagram.yaml
 archdiag watch diagram.yaml --open
 ```
 
+## Examples
+
+The [`examples/`](examples/) directory contains 10 progressively complex diagrams — from a single `note` to a full architecture using all 9 primitives. See [`examples/README.md`](examples/README.md) for the full list.
+
 ## CLI Commands
 
 ### `archdiag render`

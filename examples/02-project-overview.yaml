@@ -1,0 +1,38 @@
+diagram:
+  title: "archdiag — Project Overview"
+  subtitle: "Main packages at a glance"
+  palette:
+    cli: "#f59e0b"
+    core: "#4a9eff"
+    output: "#22c55e"
+  elements:
+    - cards:
+        - name: "cmd/archdiag"
+          color: cli
+          details:
+            - "CLI entry point"
+            - "render, validate, watch commands"
+        - name: "parse"
+          color: core
+          details:
+            - "YAML unmarshaling"
+            - "Schema validation"
+        - name: "diagram"
+          color: core
+          details:
+            - "Core data model"
+            - "9 component primitives"
+        - name: "render"
+          color: output
+          details:
+            - "HTML template engine"
+            - "Live reload server"
+        - name: "theme"
+          color: output
+          details:
+            - "Dark and light themes"
+            - "CSS variable system"
+
+    - note:
+        text: "Each package maps to a stage in the YAML → HTML pipeline."
+        style: muted

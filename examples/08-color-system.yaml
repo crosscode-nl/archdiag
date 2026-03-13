@@ -1,0 +1,98 @@
+diagram:
+  title: "archdiag — Color & Theming System"
+  subtitle: "Palette indirection, hex resolution, and CSS variables"
+  palette:
+    infra: "#4a9eff"
+    network: "#22c55e"
+    platform: "#a855f7"
+    critical: "#f59e0b"
+    security: "#ef4444"
+  elements:
+    - section:
+        name: "Color Resolution Pipeline"
+        color: infra
+        children:
+          - flow:
+              name: "How Colors Are Resolved"
+              color: infra
+              rows:
+                - steps:
+                    - { text: "YAML color field", color: critical, details: ["Palette name or #hex"] }
+                    - { text: "ResolveColor()", color: infra, details: ["diagram/color.go", "Looks up palette map"] }
+                    - { text: "ResolvedColor struct", color: network, details: ["Hex: #4a9eff", "Background: rgba(74, 158, 255, 0.1)"] }
+                  connector: arrow
+
+    - connector:
+        direction: down
+        text: "Used by"
+        color: infra
+
+    - section:
+        name: "Recommended Palette"
+        color: infra
+        tag: "from skill/SKILL.md"
+        children:
+          - grid:
+              columns: 3
+              children:
+                - card:
+                    name: "Infrastructure"
+                    color: infra
+                    details:
+                      - "#4a9eff"
+                      - "Cloud, networking, core services"
+                - card:
+                    name: "Networking"
+                    color: network
+                    details:
+                      - "#22c55e"
+                      - "Public-facing, APIs, ingress"
+                - card:
+                    name: "Platform"
+                    color: platform
+                    details:
+                      - "#a855f7"
+                      - "Operators, CRDs, middleware"
+                - card:
+                    name: "Critical"
+                    color: critical
+                    details:
+                      - "#f59e0b"
+                      - "Databases, state, alerts"
+                - card:
+                    name: "Security"
+                    color: security
+                    details:
+                      - "#ef4444"
+                      - "Auth, secrets, private zones"
+
+    - connector:
+        direction: down
+        text: "Injected into"
+        color: platform
+
+    - section:
+        name: "CSS Variable System"
+        color: platform
+        children:
+          - grid:
+              columns: 2
+              children:
+                - info:
+                    name: "Layout Variables"
+                    color: platform
+                    items:
+                      - { key: "--radius-section", value: "12px" }
+                      - { key: "--radius-card", value: "8px" }
+                      - { key: "--radius-badge", value: "4px" }
+                      - { key: "--radius-flow-node", value: "6px" }
+                - info:
+                    name: "Typography"
+                    color: platform
+                    items:
+                      - { key: "--font-family", value: "-apple-system, Segoe UI, Roboto" }
+                      - { key: "--font-mono", value: "SFMono-Regular, Consolas, Menlo" }
+
+    - note:
+        text: "Colors can be specified as palette names (semantic) or inline hex codes (#RRGGBB) anywhere in the diagram."
+        style: highlight

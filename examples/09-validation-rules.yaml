@@ -1,0 +1,107 @@
+diagram:
+  title: "archdiag — Validation Rules"
+  subtitle: "What parse.Validate() checks for each primitive"
+  palette:
+    blue: "#4a9eff"
+    green: "#22c55e"
+    purple: "#a855f7"
+    orange: "#f59e0b"
+    red: "#ef4444"
+  elements:
+    - section:
+        name: "Diagram Root"
+        color: blue
+        children:
+          - card:
+              name: "diagram"
+              color: blue
+              span: full
+              badges:
+                - { text: "title required", color: red, style: filled }
+              groups:
+                - label: "Optional Fields"
+                  items:
+                    - "subtitle"
+                    - "theme: dark | light"
+                    - "palette: map[string]string"
+
+    - connector:
+        direction: down
+        text: "Contains elements"
+        color: blue
+
+    - section:
+        name: "Container Primitives"
+        color: green
+        children:
+          - cards:
+              - name: "section"
+                color: green
+                badges:
+                  - { text: "name required", color: red, style: filled }
+                groups:
+                  - label: "Enum Constraints"
+                    mono: true
+                    items:
+                      - "border ∈ {solid, dashed}"
+                      - "span ∈ {full, half}"
+              - name: "grid"
+                color: green
+                badges:
+                  - { text: "columns ≥ 1", color: red, style: filled }
+
+    - section:
+        name: "Content Primitives"
+        color: purple
+        children:
+          - cards:
+              - name: "card / cards"
+                color: purple
+                badges:
+                  - { text: "name required", color: red, style: filled }
+              - name: "flow"
+                color: purple
+                badges:
+                  - { text: "name required", color: red, style: filled }
+                  - { text: "≥ 1 row", color: red, style: filled }
+                groups:
+                  - label: "Enum Constraints"
+                    mono: true
+                    items:
+                      - "connector ∈ {arrow, plus, none}"
+              - name: "steps"
+                color: purple
+                badges:
+                  - { text: "name required", color: red, style: filled }
+                  - { text: "≥ 1 item", color: red, style: filled }
+              - name: "info"
+                color: purple
+                badges:
+                  - { text: "name required", color: red, style: filled }
+
+    - section:
+        name: "Navigation & Annotation"
+        color: orange
+        children:
+          - cards:
+              - name: "connector"
+                color: orange
+                groups:
+                  - label: "Enum Constraints"
+                    mono: true
+                    items:
+                      - "direction ∈ {down, right, up, left}"
+                      - "style ∈ {arrow, plain}"
+              - name: "note"
+                color: orange
+                badges:
+                  - { text: "text required", color: red, style: filled }
+                groups:
+                  - label: "Enum Constraints"
+                    mono: true
+                    items:
+                      - "style ∈ {highlight, muted}"
+
+    - note:
+        text: "Validation returns all errors at once — it does not stop at the first failure."
+        style: highlight

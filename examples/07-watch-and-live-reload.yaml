@@ -1,0 +1,75 @@
+diagram:
+  title: "archdiag — Watch Mode Architecture"
+  subtitle: "File monitoring and live reload via SSE"
+  palette:
+    fs: "#f59e0b"
+    server: "#4a9eff"
+    browser: "#22c55e"
+    event: "#a855f7"
+  elements:
+    - flow:
+        name: "Live Reload Cycle"
+        color: server
+        rows:
+          - steps:
+              - { text: "Edit YAML", color: fs }
+              - { text: "fsnotify detects change", color: fs, details: ["File system watcher", "github.com/fsnotify"] }
+              - { text: "Re-parse & re-render", color: server, details: ["Full pipeline re-run", "In-memory HTML"] }
+              - { text: "SSE event broadcast", color: event, details: ["Server-Sent Events", "Channel-based notify"] }
+              - { text: "Browser reloads", color: browser }
+            connector: arrow
+            suffix: "Instant feedback"
+
+    - connector:
+        direction: down
+        text: "Implementation"
+        color: server
+
+    - section:
+        name: "Watch Server"
+        color: server
+        tag: "render/watchserver.go"
+        children:
+          - grid:
+              columns: 2
+              children:
+                - section:
+                    name: "File Watching"
+                    color: fs
+                    border: dashed
+                    children:
+                      - cards:
+                          - name: "WatchFile()"
+                            color: fs
+                            details:
+                              - "Monitor single YAML file"
+                              - "Serve at root path /"
+                          - name: "WatchDir()"
+                            color: fs
+                            details:
+                              - "Monitor all *.yaml files"
+                              - "Serve index + individual pages"
+                - section:
+                    name: "HTTP Server"
+                    color: browser
+                    border: dashed
+                    children:
+                      - cards:
+                          - name: "SSE Endpoint"
+                            color: event
+                            details:
+                              - "EventSource connection"
+                              - "Concurrent client channels"
+                          - name: "HTML Handler"
+                            color: browser
+                            details:
+                              - "Serves rendered diagrams"
+                              - "Injects reload script"
+
+    - info:
+        name: "Watch Mode Defaults"
+        color: server
+        items:
+          - { key: "Port", value: "3210" }
+          - { key: "Protocol", value: "SSE (Server-Sent Events)" }
+          - { key: "Auto-open", value: "darwin: open, linux: xdg-open" }

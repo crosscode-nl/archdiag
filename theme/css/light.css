@@ -1,6 +1,4 @@
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-:root {
+[data-theme="light"] {
     --bg-primary: #ffffff;
     --bg-card: #f6f8fa;
     --bg-nested: #ffffff;
@@ -16,24 +14,4 @@
     --radius-badge: 4px;
     --radius-flow-node: 6px;
     --arrow-color: #b0b8c1;
-}
-
-body {
-    font-family: var(--font-family);
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    padding: 32px;
-    line-height: 1.6;
-}
-
-.diagram { max-width: 1200px; margin: 0 auto; }
-.diagram > h1 { font-size: 28px; margin-bottom: 8px; color: var(--text-primary); }
-.diagram > h2 { font-size: 18px; margin-bottom: 24px; color: var(--text-muted); font-weight: 400; }
-
-.section--half { width: 48%; display: inline-block; vertical-align: top; }
-
-@media (max-width: 768px) {
-    .grid { grid-template-columns: 1fr !important; }
-    .cards { flex-direction: column; }
-    .section--half { width: 100%; }
 }

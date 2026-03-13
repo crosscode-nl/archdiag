@@ -1,0 +1,120 @@
+diagram:
+  title: "All Primitives Test"
+  subtitle: "Tests every primitive type"
+  theme: dark
+  palette:
+    blue: "#4a9eff"
+    purple: "#a855f7"
+    green: "#22c55e"
+    orange: "#f59e0b"
+    red: "#ef4444"
+
+  elements:
+    - connector:
+        direction: down
+        text: "Internet"
+        color: orange
+        style: arrow
+
+    - section:
+        name: "Main Section"
+        color: blue
+        tag: "Infrastructure"
+        children:
+          - section:
+              name: "Nested Section"
+              color: green
+              border: dashed
+              tag: "Future"
+              placeholder: "No workloads yet"
+
+          - cards:
+              - name: "Card One"
+                color: blue
+                details:
+                  - "First detail"
+                  - "Second detail"
+                badges:
+                  - { text: "Filled Badge", color: green, style: filled }
+                  - { text: "Outlined Badge", color: purple, style: outlined }
+                version: "v1.0.0"
+                subtitle: "service-account (namespace)"
+                footer: "Depends on: Card Two"
+                groups:
+                  - label: "Permissions"
+                    mono: true
+                    items:
+                      - "s3:GetObject"
+                      - "s3:PutObject"
+              - name: "Card Two"
+                details:
+                  - "Simple card"
+
+    - card:
+        name: "Standalone Card"
+        color: purple
+        details: ["Used outside a cards row"]
+
+    - flow:
+        name: "Request Flow"
+        color: blue
+        rows:
+          - steps:
+              - { text: "Client", color: green }
+              - { text: "NLB", color: orange, details: ["Maglev hashing", "TLS termination"] }
+              - "Server"
+            connector: arrow
+            suffix: "End-to-end encrypted"
+          - steps:
+              - { text: "Prom CRDs", color: red }
+              - { text: "Pull Secrets" }
+              - { text: "Operator CRDs" }
+            connector: plus
+
+    - grid:
+        columns: 3
+        children:
+          - card:
+              name: "Grid Card 1"
+              details: ["In a 3-column grid"]
+          - card:
+              name: "Grid Card 2"
+              color: green
+          - card:
+              name: "Grid Card 3"
+
+    - steps:
+        name: "Phase 1: Infrastructure"
+        color: blue
+        items:
+          - "VPC"
+          - "EKS"
+          - "IAM Roles"
+
+    - steps:
+        name: "Phase 2: Platform"
+        color: purple
+        start: 4
+        items:
+          - "Cilium"
+          - "Prometheus CRDs"
+
+    - info:
+        name: "Cluster Info"
+        color: blue
+        items:
+          - { key: "Version", value: "v1.35" }
+          - { key: "Nodes", value: "2x c6i.2xlarge" }
+          - { key: "CNI", value: "Cilium v1.19.0" }
+
+    - connector:
+        direction: down
+        style: arrow
+
+    - note:
+        text: "This is a highlighted note"
+        style: highlight
+
+    - note:
+        text: "This is a muted note"
+        style: muted

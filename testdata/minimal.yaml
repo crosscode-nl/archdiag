@@ -1,0 +1,6 @@
+diagram:
+  title: "Minimal Test"
+  subtitle: "A minimal diagram"
+  elements:
+    - note:
+        text: "Hello, world"

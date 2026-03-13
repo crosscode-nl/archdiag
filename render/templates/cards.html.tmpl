@@ -1,0 +1,7 @@
+<div class="cards" style="display: flex; gap: 12px; flex-wrap: wrap;">
+  {{- range .Items}}
+  <div style="flex: 1; min-width: 160px;">
+  {{renderComponent (addr .)}}
+  </div>
+  {{- end}}
+</div>

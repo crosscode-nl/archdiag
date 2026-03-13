@@ -1,0 +1,21 @@
+<div style="background: var(--bg-card); border: 1px solid var(--border-default); border-radius: 10px; padding: 16px; margin: 16px 0;">
+  <div style="font-size: 13px; font-weight: 600; margin-bottom: 8px;{{if .Color}} color: {{.Color.Hex}};{{end}}">{{.Name}}</div>
+  {{- range $ri, $row := .Rows}}
+  <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap; font-size: 12px;{{if $ri}} margin-top: 8px;{{end}}">
+    {{- range $i, $step := $row.Steps}}
+    {{- if and (gt $i 0) (ne $row.Connector "none")}}
+    <span style="color: var(--arrow-color); font-weight: bold;">{{if eq $row.Connector "plus"}}+{{else}}&rarr;{{end}}</span>
+    {{- end}}
+    <span style="border: 1px solid {{if $step.Color}}{{$step.Color.Hex}}{{else}}var(--border-default){{end}}; border-radius: var(--radius-flow-node); padding: 3px 8px; background: var(--bg-nested); white-space: nowrap;">
+      {{- if $step.Color}}<strong style="color: {{$step.Color.Hex}};">{{$step.Text}}</strong>{{else}}{{$step.Text}}{{end}}
+      {{- range $step.Details}}
+      <span style="display: block; font-size: 10px; color: var(--text-muted);">{{.}}</span>
+      {{- end}}
+    </span>
+    {{- end}}
+    {{- if $row.Suffix}}
+    <span style="font-size: 11px; color: var(--text-muted); margin-left: 8px;">{{$row.Suffix}}</span>
+    {{- end}}
+  </div>
+  {{- end}}
+</div>

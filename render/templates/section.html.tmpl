@@ -1,0 +1,15 @@
+<div class="section{{if eq .Span "half"}} section--half{{end}}" style="border: 2px {{if .Border}}{{.Border}}{{else}}solid{{end}} {{if .Color}}{{.Color.Hex}}{{else}}var(--border-default){{end}}; border-radius: var(--radius-section); padding: 16px; margin-bottom: 16px;">
+  <div style="font-size: 14px; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;{{if .Color}} color: {{.Color.Hex}};{{end}}">
+    {{.Name}}
+    {{- if .Tag}}
+    <span style="font-size: 10px; padding: 2px 8px; border-radius: var(--radius-badge); font-weight: 400;{{if .Color}} background: {{.Color.Background}}; color: {{.Color.Hex}};{{else}} background: var(--bg-card); color: var(--text-muted);{{end}}">{{.Tag}}</span>
+    {{- end}}
+  </div>
+  {{- if .Placeholder}}
+  <div style="font-size: 12px; color: var(--text-muted); text-align: center; padding: 8px;">{{.Placeholder}}</div>
+  {{- else}}
+  {{- range .Elements}}
+  {{renderComponent .}}
+  {{- end}}
+  {{- end}}
+</div>

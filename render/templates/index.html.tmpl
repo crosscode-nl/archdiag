@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>archdiag — Diagrams</title>
+<style>
+{{.ThemeCSS}}
+</style>
+</head>
+<body>
+<div class="diagram">
+  <h1>archdiag</h1>
+  <h2>Available diagrams</h2>
+  {{- range .Diagrams}}
+  <a href="{{.Path}}" style="display: block; padding: 12px 16px; margin-bottom: 8px; border-radius: var(--radius-card); background: var(--bg-card); border: 1px solid var(--border-default); text-decoration: none; color: var(--text-primary);">
+    <strong>{{.Title}}</strong>
+    {{- if .Subtitle}}
+    <span style="display: block; font-size: 12px; color: var(--text-muted);">{{.Subtitle}}</span>
+    {{- end}}
+  </a>
+  {{- end}}
+</div>
+</body>
+</html>

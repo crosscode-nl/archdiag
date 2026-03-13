@@ -1,0 +1,38 @@
+<div class="card" style="border: 1px solid {{if .Color}}{{.Color.Hex}}{{else}}var(--border-default){{end}}; border-radius: var(--radius-card); padding: 12px; background: var(--bg-card);{{if eq .Span "full"}} grid-column: 1 / -1;{{end}}">
+  <h3 style="font-size: 13px; font-weight: 600;{{if .Color}} color: {{.Color.Hex}};{{end}}">{{.Name}}</h3>
+  {{- if .Version}}
+  <div style="font-size: 10px; color: #58a6ff;">{{.Version}}</div>
+  {{- end}}
+  {{- if .Subtitle}}
+  <div style="font-size: 11px; padding: 4px 8px; border-radius: var(--radius-badge); background: var(--bg-nested); border: 1px solid var(--border-nested); display: inline-block; margin: 4px 0; font-family: var(--font-mono);">{{.Subtitle}}</div>
+  {{- end}}
+  {{- range .Details}}
+  <p style="font-size: 11px; color: var(--text-detail); margin-top: 4px;">{{.}}</p>
+  {{- end}}
+  {{- if .Badges}}
+  <div style="margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap;">
+    {{- range .Badges}}
+    {{- if eq .Style "outlined"}}
+    <span style="display: inline-block; font-size: 10px; padding: 2px 6px; border-radius: var(--radius-badge); border: 1px solid {{if .Color}}{{.Color.Hex}}{{else}}var(--border-default){{end}};{{if .Color}} color: {{.Color.Hex}};{{end}}">{{.Text}}</span>
+    {{- else}}
+    <span style="display: inline-block; font-size: 10px; padding: 2px 6px; border-radius: var(--radius-badge);{{if .Color}} background: {{.Color.Background}}; color: {{.Color.Hex}};{{else}} background: var(--bg-nested); color: var(--text-muted);{{end}}">{{.Text}}</span>
+    {{- end}}
+    {{- end}}
+  </div>
+  {{- end}}
+  {{- range .Groups}}
+  <div style="margin-top: 6px;">
+    {{- if .Label}}
+    <div style="font-size: 11px; font-weight: 600; color: var(--text-muted); margin-bottom: 4px;">{{.Label}}</div>
+    {{- end}}
+    <div style="font-size: 11px;{{if .Mono}} font-family: var(--font-mono);{{end}} background: var(--bg-nested); border-radius: 6px; padding: 8px 10px; border: 1px solid var(--border-nested);">
+      {{- range .Items}}
+      <div style="padding: 1px 0;">{{.}}</div>
+      {{- end}}
+    </div>
+  </div>
+  {{- end}}
+  {{- if .Footer}}
+  <div style="font-size: 11px; color: var(--text-muted); margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--border-nested);">{{.Footer}}</div>
+  {{- end}}
+</div>

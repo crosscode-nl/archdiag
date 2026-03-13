@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{.Diagram.Title}}</title>
+<style>
+{{.ThemeCSS}}
+</style>
+</head>
+<body>
+<div class="diagram">
+  <h1>{{.Diagram.Title}}</h1>
+  {{- if .Diagram.Subtitle}}
+  <h2>{{.Diagram.Subtitle}}</h2>
+  {{- end}}
+  {{- range .Diagram.Elements}}
+  {{renderComponent .}}
+  {{- end}}
+</div>
+{{- if .WatchScript}}
+<script>{{.WatchScript}}</script>
+{{- end}}
+</body>
+</html>

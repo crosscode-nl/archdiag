@@ -1,0 +1,5 @@
+<div class="grid" style="display: grid; grid-template-columns: repeat({{.Columns}}, 1fr); gap: 12px;">
+  {{- range .Elements}}
+  {{renderComponent .}}
+  {{- end}}
+</div>

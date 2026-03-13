@@ -1,0 +1,8 @@
+<div style="text-align: center; margin: 12px 0;">
+  {{- if .Text}}
+  <span style="border: 2px solid {{if .Color}}{{.Color.Hex}}{{else}}var(--border-default){{end}}; border-radius: 20px; padding: 6px 20px;{{if .Color}} color: {{.Color.Hex}};{{end}} font-weight: 600;">{{.Text}}</span>
+  {{- end}}
+  {{- if ne .Style "plain"}}
+  <div style="color: var(--arrow-color); margin: 4px 0;">{{dirArrow .Direction}}</div>
+  {{- end}}
+</div>
